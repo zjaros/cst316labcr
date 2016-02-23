@@ -3,6 +3,8 @@ package banking.primitive.core;
 public class Savings extends Account {
 	private static final long serialVersionUID = 111L;
 	private int numWithdraws = 0;
+	private int FEECONSTANT = 3;
+	private final float FEE = 0.50f;
 
 	public Savings(String name) {
 		super(name);
@@ -17,7 +19,7 @@ public class Savings extends Account {
 	 */
 	public boolean deposit(float amount) {
 		if (getState() != State.CLOSED && amount > 0.0f) {
-			balance = balance + amount - 0.50F;
+			balance = balance + amount - FEE;
 			if (balance >= 0.0f) {
 				setState(State.OPEN);
 			}
@@ -33,7 +35,7 @@ public class Savings extends Account {
 		if (getState() == State.OPEN && amount > 0.0f) {
 			balance = balance - amount;
 			numWithdraws++;
-			if (numWithdraws > 3)
+			if (numWithdraws > FEECONSTANT)
 				balance = balance - 1.0f;
 			// KG BVA: should be < 0
 			if (balance <= 0.0f) {

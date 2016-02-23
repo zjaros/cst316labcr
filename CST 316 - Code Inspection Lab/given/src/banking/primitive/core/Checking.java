@@ -5,6 +5,8 @@ public class Checking extends Account {
 	private static final long serialVersionUID = 11L;
 	private int numWithdraws = 0;
 	private final int FEECONSTANT = 10;
+	private final float CHARGE = 2.0f;
+	private final float MINIMUM = -100.0f;
 	
 	private Checking(String name) {
 		super(name);
@@ -40,11 +42,11 @@ public class Checking extends Account {
 	public boolean withdraw(float amount) {
 		if (amount > 0.0f) {		
 			// KG: incorrect, last balance check should be >=
-			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -100.0f)) {
+			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > MINIMUM)) {
 				balance = balance - amount;
 				numWithdraws++;
 				if (numWithdraws > FEECONSTANT)
-					balance = balance - 2.0f;
+					balance = balance - CHARGE;
 				if (balance < 0.0f) {
 					setState(State.OVERDRAWN);
 				}
