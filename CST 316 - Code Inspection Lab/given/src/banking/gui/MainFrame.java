@@ -112,7 +112,9 @@ class MainFrame extends JFrame {
 			List<Account> accounts = null;
 			if (e.getSource() == displayAccountsButton) {
 				accounts = myServer.getActiveAccounts();
-			} else {
+			} 
+			else 
+			{
 				accounts = myServer.getAllAccounts();
 			}
 			StringBuffer sb = new StringBuffer();
